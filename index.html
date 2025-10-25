@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title & Description -->
+  <title>CSS Gradient Generator | Free Online Gradient Tool – BCA-HUB</title>
+  <meta name="description" content="Create stunning linear, radial, and conic gradients online. Free CSS gradient generator tool by BCA-HUB. Copy CSS code easily.">
+  <meta name="keywords" content="CSS gradient generator, linear gradient, radial gradient, conic gradient, CSS background, BCA-HUB">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://amanovar.github.io/learn-/css-gradient-generator">
+
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="CSS Gradient Generator | Free Online Gradient Tool – BCA-HUB">
+  <meta property="og:description" content="Create stunning linear, radial, and conic gradients online. Free CSS gradient generator tool by BCA-HUB. Copy CSS code easily.">
+  <meta property="og:url" content="https://amanovar.github.io/learn-/css-gradient-generator">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://amanovar.github.io/learn-/assets/gradient-preview.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CSS Gradient Generator | Free Online Gradient Tool – BCA-HUB">
+  <meta name="twitter:description" content="Create stunning linear, radial, and conic gradients online. Free CSS gradient generator tool by BCA-HUB. Copy CSS code easily.">
+  <meta name="twitter:image" content="https://amanovar.github.io/learn-/assets/gradient-preview.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://amanovar.github.io/learn-/assets/favicon.ico" type="image/x-icon">
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+  <style>
+    :root {
+  --primary:#ff9800;
+  --primary-dark:#f57c00;
+  --bg:#fff8e1;
+  --card:#fff;
+  --text:#222;
+  --sidebar-bg:#333333;
+}
+    :root{--bg:#f7fafc;--card:#fff;--accent:#6366f1}
+    *{box-sizing:border-box}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; margin:0;min-height:100vh;background:var(--bg);color:#0f172a;align-items:center;justify-content:center;padding:38px}
+    .wrap{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 420px;gap:20px; position:relative; top: 90px;font-size: 30px;padding-right: 30px;}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 6px 20px rgba(2,6,23,0.08);padding:18px}
+
+    /* live preview */
+    .preview.card{height:420px;display:flex;flex-direction:column}
+    .preview-box{flex:1;border-radius:10px;border:1px solid rgba(2,6,23,0.06);position:relative;overflow:hidden}
+    .controls{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+
+    /* controls list */
+    .row{display:flex;gap:10px;align-items:center}
+    label{font-size:13px;color:#0f172a;min-width:96px}
+    .select, .input, .btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(2,6,23,0.08);background:#fff}
+    .input[type=range]{-webkit-appearance:none;height:6px;border-radius:6px;background:#eee;outline:none}
+
+    /* colors list */
+    .colors{display:flex;flex-direction:column;gap:10px}
+    .color-item{display:flex;gap:8px;align-items:center}
+    .color-swatch{width:44px;height:36px;border-radius:8px;border:1px solid rgba(2,6,23,0.06)}
+    .color-input{flex:1}
+    .small{font-size:12px;color:#475569}
+
+    /* code box */
+    pre{background:#0f172a;color:#e6eef8;padding:12px;border-radius:8px;overflow:auto;font-family:Menlo,monospace;font-size:13px}
+
+    .toolbar{display:flex;gap:8px;align-items:center}
+    .btn{cursor:pointer;border:none;background:linear-gradient(90deg,var(--accent),#8b5cf6);color:#fff}
+    .outline{background:transparent;border:1px solid rgba(2,6,23,0.08);color:var(--accent)}
+
+    /* responsive */
+    @media (max-width:980px){.wrap{grid-template-columns:1fr} .preview.card{order:2}}
+
+    /* HEADER */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 18px;
+  background:linear-gradient(90deg,var(--primary),var(--primary-dark));
+  color:#fff;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+.logo{font-weight:700;font-size:1.3rem; margin-right: 80px;}
+.sidebar-toggle{cursor:pointer;font-size:1.5rem;}
+/* TOP LINKS */
+.scrollable-links{
+  display:flex;
+  overflow-x:auto;
+  background:#fff3cd;
+  padding:8px 0;
+  position:fixed;
+  top:58px;
+  width:100%;
+  scrollbar-width:thin;
+  z-index:999;
+}
+.scrollable-links a{
+  flex:0 0 auto;
+  margin:0 12px;
+  text-decoration:none;
+  color:#333;
+  font-weight:500;
+}
+.scrollable-links a:hover{color:var(--primary);}
+
+/* SIDEBAR FIXED SCROLL */
+.sidebar {
+  width: 220px;
+  height: calc(100vh - 80px); /* top 80px ke baad remaining height */
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 80px;
+  left: -220px;
+  transition: left .4s ease;
+  color: #fff;
+  padding-top: 10px;
+  z-index: 998;
+  overflow-y: auto; /* vertical scroll */
+  overflow-x: hidden; /* horizontal scroll nahi chahiye */
+}
+
+.sidebar.show { left: 0; }
+
+.sidebar a {
+  display: block;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,.1);
+  padding-left: 25px;
+}
+
+/* Optional: custom scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+  </style>
+</head>
+<body>
+    
+
+<header>
+  <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+  <div class="logo">BCA-HUB</div>
+</header>
+
+<div class="scrollable-links">
+  <a href="index.html">Home</a>
+  <a href="allinone.html">All-in-One</a>
+  <a href="gst.html">All Calculators</a>
+  <a href="sem1.html">All Sem</a>
+  <a href="paper.html">Question Paper</a>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <a href="Polygon Perimeter Calculator.html">Polygon Perimeter Calculator</a>
+  <a href="Calorie Calculator.html">Calorie Calculator</a>
+  <a href="Date Calculator .html">Date Calculator </a>
+  <a href="Time Calculator .html">Time Calculator</a>
+  <a href="SIP-Calculator.html">SIP Calculator</a>
+  <a href="emi.html">EMI Calculator</a>
+  <a href="prcentage.html">Percentage Calculator </a>
+    <a href="Age.html">Age Calculator</a>
+    <a href="BMI.html">BMI Calculator</a>
+<a href="rational-calculator.html">Rational Calculator</a>
+  <a href="Dynamic GPA Calculator.html">Dynamic GPA Calculator</a>
+  <a href="Fuel Consumption Calculator.html">Fuel Consumption Calculator</a>
+  <a href="Land Value Manager .html">Advanced Land Value Manager </a>
+  <a href="multiplication.html">Multiplication Calculator </a>
+  <a href="Square Plot Calculator.html">Square Plot Calculator</a>
+  <a href="fraction-addition-calculator.html">Fraction Addition Calculator</a>
+  <a href="hexa-to-decimal-calculator.html">Hexa to Decimal Calculator</a>
+
+
+  <br>
+<br>
+<br>
+</div>
+
+
+
+  <div class="wrap">
+    <!-- LEFT: Preview & options -->
+    <div class="card preview">
+      <h2 style="margin:0 0 10px 0">CSS Gradient Generator</h2>
+      <div class="preview-box" id="previewBox">
+        <div style="position:absolute;left:12px;top:12px;background:rgba(255,255,255,0.6);backdrop-filter:blur(4px);padding:6px 10px;border-radius:8px;font-weight:600;font-size:13px">Live preview</div>
+      </div>
+
+      <div class="controls">
+        <div class="row">
+          <label>Type</label>
+          <select id="type" class="select">
+            <option value="linear">Linear</option>
+            <option value="radial">Radial</option>
+            <option value="conic">Conic</option>
+          </select>
+          <label style="min-width:64px">Repeating</label>
+          <input type="checkbox" id="repeating" />
+        </div>
+
+        <div class="row">
+          <label>Angle / Position</label>
+          <input id="angle" type="range" min="0" max="360" value="90" class="input" />
+          <div class="small" id="angleVal">90°</div>
+        </div>
+
+        <div>
+          <label style="display:block;margin-bottom:8px">Colors</label>
+          <div class="colors" id="colors"></div>
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="addColor" class="btn">+ Add color</button>
+            <button id="randomize" class="outline btn">Random</button>
+            <button id="preset" class="outline btn">Presets</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Code & controls -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="display:flex;flex-direction:column">
+          <strong>CSS Output</strong>
+          <span class="small">Copy the background property or full CSS</span>
+        </div>
+        <div class="toolbar">
+          <button id="copyBtn" class="btn">Copy CSS</button>
+          <button id="copyBg" class="outline btn">Copy background</button>
+        </div>
+      </div>
+
+      <pre id="codeBox">/* CSS will appear here */</pre>
+
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+        <label class="small" style="min-width:110px">Preview size</label>
+        <select id="size" class="select">
+          <option value="cover">cover</option>
+          <option value="contain">contain</option>
+          <option value="auto">auto</option>
+        </select>
+        <label class="small" style="margin-left:8px">Radius</label>
+        <select id="radius" class="select">
+          <option value="0">0</option>
+          <option value="8px">8px</option>
+          <option value="16px">16px</option>
+          <option value="50%">50%</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // state
+    const state = {
+      type: 'linear',
+      angle: 90,
+      repeating: false,
+      colors: [ '#6366f1', '#06b6d4' ],
+      size: 'cover',
+      radius: '8px'
+    }
+
+    // elements
+    const previewBox = document.getElementById('previewBox')
+    const typeSel = document.getElementById('type')
+    const angleEl = document.getElementById('angle')
+    const angleVal = document.getElementById('angleVal')
+    const colorsEl = document.getElementById('colors')
+    const addColor = document.getElementById('addColor')
+    const randomize = document.getElementById('randomize')
+    const preset = document.getElementById('preset')
+    const codeBox = document.getElementById('codeBox')
+    const copyBtn = document.getElementById('copyBtn')
+    const copyBg = document.getElementById('copyBg')
+    const repeatingEl = document.getElementById('repeating')
+    const sizeSel = document.getElementById('size')
+    const radiusSel = document.getElementById('radius')
+
+    // helpers
+    function genGradientCSS(){
+      const t = state.type
+      const rep = state.repeating ? 'repeating-' : ''
+      let body = ''
+      if(t === 'linear'){
+        body = `${rep}linear-gradient(${state.angle}deg, ${state.colors.join(', ')})`
+      } else if(t === 'radial'){
+        body = `${rep}radial-gradient(circle at center, ${state.colors.join(', ')})`
+      } else if(t === 'conic'){
+        body = `${rep}conic-gradient(from ${state.angle}deg, ${state.colors.join(', ')})`
+      }
+      return `background: ${body};\nbackground-size: ${state.size};\nborder-radius: ${state.radius};`;
+    }
+
+    function updatePreview(){
+      const css = genGradientCSS()
+      previewBox.style.cssText = css + 'height:100%;padding:12px;'
+      codeBox.textContent = `/* Paste into any selector */\n.selector {\n  ${css.replace(/\n/g,'\n  ')}\n}`
+    }
+
+    function renderColors(){
+      colorsEl.innerHTML = ''
+      state.colors.forEach((c, i)=>{
+        const div = document.createElement('div')
+        div.className = 'color-item'
+        div.innerHTML = `
+          <div class='color-swatch' style='background:${c}'></div>
+          <input class='input color-input' value='${c}' data-index='${i}' />
+          <input type='range' min='0' max='100' value='${Math.round((i/(state.colors.length-1||1))*100)}' class='input pos' data-index='${i}' />
+          <button class='outline btn remove' data-index='${i}'>Remove</button>`
+        colorsEl.appendChild(div)
+      })
+
+      // bind events
+      colorsEl.querySelectorAll('.color-input').forEach(inp=>{
+        inp.addEventListener('input',e=>{
+          const idx = +e.target.getAttribute('data-index')
+          state.colors[idx] = e.target.value
+          renderPreviewSwatches()
+          updatePreview()
+        })
+      })
+      colorsEl.querySelectorAll('.remove').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          const idx = +e.target.getAttribute('data-index')
+          if(state.colors.length<=2) return alert('At least two colors required')
+          state.colors.splice(idx,1)
+          renderColors(); updatePreview()
+        })
+      })
+    }
+
+    function renderPreviewSwatches(){
+      colorsEl.querySelectorAll('.color-swatch').forEach((s,i)=> s.style.background = state.colors[i])
+    }
+
+    addColor.addEventListener('click',()=>{
+      if(state.colors.length>=6) return alert('Max 6 colors')
+      // default new color is average of last
+      state.colors.push('#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'))
+      renderColors(); updatePreview()
+    })
+
+    randomize.addEventListener('click',()=>{
+      state.colors = Array.from({length: Math.max(2, Math.min(5, state.colors.length))}).map(()=>('#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0')))
+      renderColors(); updatePreview()
+    })
+
+    preset.addEventListener('click',()=>{
+      const presets = [ ['#f97316','#fb7185'], ['#06b6d4','#3b82f6','#8b5cf6'], ['#ffed4a','#f97316','#ef4444'], ['#34d399','#60a5fa'] ]
+      state.colors = presets[Math.floor(Math.random()*presets.length)]
+      renderColors(); updatePreview()
+    })
+
+    typeSel.addEventListener('change',e=>{ state.type = e.target.value; updatePreview() })
+    angleEl.addEventListener('input',e=>{ state.angle = +e.target.value; angleVal.textContent = state.angle + '°'; updatePreview() })
+    repeatingEl.addEventListener('change',e=>{ state.repeating = e.target.checked; updatePreview() })
+    sizeSel.addEventListener('change',e=>{ state.size = e.target.value; updatePreview() })
+    radiusSel.addEventListener('change',e=>{ state.radius = e.target.value; updatePreview() })
+
+    copyBtn.addEventListener('click',()=>{
+      navigator.clipboard.writeText(codeBox.textContent).then(()=>alert('CSS copied'))
+    })
+    copyBg.addEventListener('click',()=>{
+      const bg = genGradientCSS().split('\n')[0]
+      navigator.clipboard.writeText(bg).then(()=>alert('Background copied'))
+    })
+
+    // init
+    function init(){
+      typeSel.value = state.type
+      angleEl.value = state.angle
+      angleVal.textContent = state.angle + '°'
+      renderColors()
+      updatePreview()
+    }
+
+    init()
+
+
+    // Sidebar toggle
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('show');
+}
+document.addEventListener('click',function(event){
+  const sidebar=document.getElementById('sidebar');
+  const toggleBtn=document.querySelector('.sidebar-toggle');
+  if(sidebar.classList.contains('show') && !sidebar.contains(event.target) && !toggleBtn.contains(event.target)){
+    sidebar.classList.remove('show');
+  }
+});
+  </script>
+</body>
+</html>
